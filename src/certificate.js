@@ -88,15 +88,16 @@ function idealFontSize (font, text, maxWidth, minSize, defaultSize) {
 }
 
 async function generatePdf (profile, reasons) {
-  const generatedDate = new Date()
-  setDateNow(generatedDate)
-  const creationDate = `${day}/${month}/${year}`
+  const { lastname, firstname, birthday, lieunaissance, address, zipcode, town, datesortie, heuresortie, datecreation, heurecreation } = profile
 
-  const hour = pad(generatedDate.getHours())
-  const minute = pad(generatedDate.getMinutes())
-  const creationHour = `${hour}h${minute}`
+  const cday = String(datecreation).substring(8)
+  const cmonth = String(datecreation).substring(5, 7)
+  const cyear = String(datecreation).substring(0, 4)
+  const creationDate = `${cday}/${cmonth}/${cyear}`
+  const chour = String(heurecreation).substring(0, 2)
+  const cminutes = String(heurecreation).substring(3, 5)
+  const creationHour = `${chour}h${cminutes}`
 
-  const { lastname, firstname, birthday, lieunaissance, address, zipcode, town, datesortie, heuresortie } = profile
   const releaseHours = String(heuresortie).substring(0, 2)
   const releaseMinutes = String(heuresortie).substring(3, 5)
 
