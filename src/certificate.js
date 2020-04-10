@@ -16,6 +16,8 @@ library.add(faEye, faFilePdf)
 dom.watch()
 
 var year, month, day
+var pdfdate, pdfhour
+var pdfreasons
 
 const generateQR = async text => {
   try {
@@ -97,9 +99,17 @@ async function generatePdf (profile, reasons) {
   const chour = String(heurecreation).substring(0, 2)
   const cminutes = String(heurecreation).substring(3, 5)
   const creationHour = `${chour}h${cminutes}`
+  
+  const rday = String(datesortie).substring(0, 2)
+  const rmonth = String(datesortie).substring(3, 5)
+  const ryear = String(datesortie).substring(6)
 
   const releaseHours = String(heuresortie).substring(0, 2)
   const releaseMinutes = String(heuresortie).substring(3, 5)
+
+  pdfdate = ryear + rmonth + rday
+  pdfhour = releaseHours + releaseMinutes
+  pdfreasons = reasons
 
   const data = [
     `Cree le: ${creationDate} a ${creationHour}`,
@@ -245,7 +255,7 @@ $('#generate-btn').addEventListener('click', async event => {
   const reasons = getAndSaveReasons()
   const pdfBlob = await generatePdf(getProfile(), reasons)
   localStorage.clear()
-  downloadBlob(pdfBlob, 'attestation.pdf')
+  downloadBlob(pdfBlob, `attestation_${pdfreasons}_${pdfdate}_${pdfhour}.pdf`)
 
   snackbar.classList.remove('d-none')
   setTimeout(() => snackbar.classList.add('show'), 100)
