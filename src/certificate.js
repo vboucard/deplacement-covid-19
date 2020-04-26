@@ -50,12 +50,18 @@ function setReleaseDateTime () {
   setDateNow(loadedDate)
   const releaseDateInput = document.querySelector('#field-datesortie')
   releaseDateInput.value = `${year}-${month}-${day}`
+  
+  const creationDateInput = document.querySelector('#field-datecreation')
+  creationDateInput.value = `${year}-${month}-${day}`
 
   const hour = pad(loadedDate.getHours())
   const minute = pad(loadedDate.getMinutes())
 
   const releaseTimeInput = document.querySelector('#field-heuresortie')
   releaseTimeInput.value = `${hour}:${minute}`
+
+  const creationTimeInput = document.querySelector('#field-heurecreation')
+  creationTimeInput.value = `${hour}:${minute}`
 }
 
 function saveProfile () {
